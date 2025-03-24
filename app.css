@@ -3,3 +3,54 @@
 :root {
   --ff-primary: 'Lato', sans-serif;
 }
+
+.bold {
+  font-weight: 700;
+}
+
+.flex {
+  display: flex;
+}
+
+.fixed {
+  position: fixed;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+a {
+  text-decoration: none;
+  color: var(--clr-primary-5);
+}
+
+body {
+  font-family: var(--ff-primary);
+}
+
+.sidebar {
+  position: fixed; /* Fixed position on the left */
+  top: 0;
+  left: 0;
+  width: 25vw; /* Width of the sidebar */
+  height: 100%; /* Full height */
+  background-color: #333;
+  color: #fff;
+  padding-top: 20px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  padding-left: 20px;
+}
+
+.navbar {
+  margin: 0 auto;
+  padding: 20px 0;
+}
