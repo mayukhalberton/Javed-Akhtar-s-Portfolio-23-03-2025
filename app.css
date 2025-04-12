@@ -129,10 +129,11 @@ a {
   position: fixed; /* Fixed position on the left */
   top: 0;
   left: 0;
-  width: 25vw; /* Width of the sidebar */
+  width: 20vw; /* Width of the sidebar */
   height: 90%; /* Full height */
-  padding: 40px 20px;
+  padding: 40px 2.5vw;
   background-color: white;
+  outline: 2px solid rgb(180, 12, 0);
 }
 
 .navbar .social img {
@@ -149,21 +150,9 @@ a {
     margin-left: 25vw; /* Push the body to the right, same width as the sidebar */
     width: 75vw; /* Remaining width */
     height: 100%;
-    /* overflow: hidden; */
-    /* outline: 2px solid blue; */
+    outline: 2px solid blue;
 }
 
-
-.hero {
-  overflow: hidden;
-  /* outline: 2px solid green; */
-}
-
-.hero-img {
-  object-fit: cover;
-  display: block;
-
-}
 
 .nav-links ul li a {
   position: relative;
@@ -190,4 +179,49 @@ a {
 
 .nav-links ul li a:hover::before {
   opacity: 1;
+}
+
+.nav-links ul li a.active::before {
+  opacity: 1;
+}
+
+/* --------------- index.html -------------- */
+
+.hero {
+  overflow: hidden;
+  /* outline: 2px solid green; */
+}
+
+.hero-img {
+  object-fit: cover;
+  display: block;
+
+}
+
+/* --------------- about.html -------------- */
+
+.about-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4rem 2rem;
+  gap: 2rem;
+}
+
+.about-text {
+  width: 50%;
+}
+
+.about-image {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.about-image img {
+  max-width: 100%;
+  max-height: 90vh;
+  object-fit: contain;
+  display: block;
 }
