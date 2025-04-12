@@ -94,8 +94,8 @@
   margin: 0 auto;
 }
 
-.overflow-y-hidden {
-  overflow-y: hidden;
+.overflow-hidden{
+  overflow: hidden;
 }
 
 /* tags */
@@ -149,7 +149,7 @@ a {
     margin-left: 25vw; /* Push the body to the right, same width as the sidebar */
     width: 75vw; /* Remaining width */
     height: 100%;
-    overflow: hidden;
+    /* overflow: hidden; */
     /* outline: 2px solid blue; */
 }
 
