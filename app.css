@@ -130,8 +130,8 @@ a {
   top: 0;
   left: 0;
   width: 25vw; /* Width of the sidebar */
-  height: 80%; /* Full height */
-  padding-top: 40px;
+  height: 90%; /* Full height */
+  padding: 40px 20px;
   background-color: white;
 }
 
