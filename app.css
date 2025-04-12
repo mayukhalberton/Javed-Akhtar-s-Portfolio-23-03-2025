@@ -74,6 +74,10 @@
   justify-content: space-between;
 }
 
+.gap-4 {
+  gap: 4rem;
+}
+
 .gap-5 {
   gap: 5rem;
 }
@@ -136,7 +140,7 @@ a {
 }
 
 .nav-links ul {
-    gap: 30px;
+    gap: 20px;
     margin: 0;
     padding: 0;
 }
@@ -159,4 +163,31 @@ a {
   object-fit: cover;
   display: block;
 
+}
+
+.nav-links ul li a {
+  position: relative;
+  display: block;
+  width: 200px;
+  text-align: left;
+  padding: 0.5rem 0rem;
+  margin-right: auto;
+  z-index: 1;
+}
+
+.nav-links ul li a::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 10px;
+  height: 100%;
+  width: 100%;
+  border: 2px solid black;
+  opacity: 0;
+  transition: opacity 0.1s ease;
+  z-index: -1;
+}
+
+.nav-links ul li a:hover::before {
+  opacity: 1;
 }
