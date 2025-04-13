@@ -42,6 +42,10 @@
   font-size: var(--fs-body);
 }
 
+.m-top-2{
+  margin-top: 5rem;
+}
+
 .fixed {
   position: fixed;
 }
@@ -74,6 +78,10 @@
   justify-content: space-between;
 }
 
+.gap-1 {
+  gap: 1rem;
+}
+
 .gap-4 {
   gap: 4rem;
 }
@@ -88,6 +96,10 @@
 
 .nowrap {
   flex-wrap: nowrap
+}
+
+.wrap {
+  flex-wrap: wrap;
 }
 
 .centre {
@@ -173,7 +185,7 @@ a {
   width: 100%;
   border: 2px solid black;
   opacity: 0;
-  transition: opacity 0.1s ease;
+  transition: opacity 0.2s ease;
   z-index: -1;
 }
 
@@ -200,28 +212,30 @@ a {
 
 /* --------------- about.html -------------- */
 
-.about-section {
+.about-container {
   display: flex;
+  justify-content: center;
   align-items: center;
-  justify-content: space-between;
-  padding: 4rem 2rem;
   gap: 2rem;
+  width: 100%;
 }
 
 .about-text {
+  margin: 50px 0 0 0;
   width: 50%;
+  padding: 30px;
 }
 
 .about-image {
+  margin: 50px 0 0 0;
   width: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
 }
 
 .about-image img {
-  max-width: 100%;
-  max-height: 90vh;
   object-fit: contain;
   display: block;
 }
