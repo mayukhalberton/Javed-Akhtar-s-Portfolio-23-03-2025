@@ -174,7 +174,7 @@ a {
   height: 90%; /* Full height */
   padding: 40px 2.5vw;
   background-color: white;
-  outline: 2px solid rgb(180, 12, 0);
+  /* outline: 2px solid rgb(180, 12, 0); */
 }
 
 .navbar .social img {
@@ -191,7 +191,7 @@ a {
     margin-left: 25vw; /* Push the body to the right, same width as the sidebar */
     width: 75vw; /* Remaining width */
     height: 100%;
-    outline: 2px solid blue;
+    /* outline: 2px solid blue; */
 }
 
 
