@@ -30,7 +30,7 @@
         </div>
     </nav>
     <section class="main-content">
-        <div class="slected-works-container flex gap-2 wrap m-top-2 m-left-2">
+        <div class="slected-works-container flex gap-2 wrap m-top-2 m-left-2 p-bottom-2">
             <!-- <div class="work-item">
                 <img src="assets/images/selected-works/1.jpg" alt="" loading="lazy">
                 <div class="work-title fs-small fw-extra-bold"> Macabre Series lV, 2025, Oil On Canvas, <br> 92 x 76 (cm)</div>
@@ -49,6 +49,17 @@
             </div> -->
         </div>
     </section>
+
+    <div id="imageViewer" class="image-viewer hidden">
+        <div class="viewer-controls">
+          <button id="prevBtn">⟨</button>
+          <button id="fullscreenBtn">⛶</button>
+          <button id="nextBtn">⟩</button>
+          <button id="closeBtn">✕</button>
+        </div>
+        <img id="viewerImage" src="" alt="Full Image">
+      </div>
+
     <script src="index.js"></script>
 </body>
 </html>

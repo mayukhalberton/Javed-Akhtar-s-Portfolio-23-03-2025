@@ -4,7 +4,7 @@ const navLinks = document.querySelectorAll('.nav-links ul li a');
 
 navLinks.forEach(link => {
   const href = link.getAttribute('href');
-  
+
   if (href === currentPath) {
     link.classList.add('active');
   }
@@ -60,17 +60,54 @@ navLinks.forEach(link => {
 
 
 
+// Working code for displaying work-items:
+// const selectedWorksContainer = document.querySelector('.slected-works-container');
 
+// fetch('assets/images/selected-works/work-titles.json')
+//   .then(response => response.json())
+//   .then(data => {
+//     data.forEach(item => {
+//       const workItem = document.createElement('div');
+//       workItem.classList.add('work-item');
+
+//       // Load from low-res folder based on sl no
+//       const img = document.createElement('img');
+//       img.src = `assets/images/selected-works/low-res/${item.sl}.jpg`;
+//       img.alt = item.title;
+//       img.loading = 'lazy';
+
+//       const titleDiv = document.createElement('div');
+//       titleDiv.classList.add('work-title', 'fs-small', 'fw-extra-bold');
+//       titleDiv.innerHTML = `${item.title},<br>${item.size}`;
+
+//       workItem.appendChild(img);
+//       workItem.appendChild(titleDiv);
+
+//       selectedWorksContainer.appendChild(workItem);
+//     });
+//   })
+//   .catch(error => {
+//     console.error("Error loading work-titles.json or images:", error);
+//   });
+
+
+// working code for displaying work-items with click event to open image viewer
 const selectedWorksContainer = document.querySelector('.slected-works-container');
+const viewer = document.getElementById('imageViewer');
+const viewerImg = document.getElementById('viewerImage');
+
+let artworks = [];
+let currentIndex = 0;
 
 fetch('assets/images/selected-works/work-titles.json')
   .then(response => response.json())
   .then(data => {
-    data.forEach(item => {
+    artworks = data;
+
+    data.forEach((item, index) => {
       const workItem = document.createElement('div');
       workItem.classList.add('work-item');
 
-      // Load from low-res folder based on sl no
       const img = document.createElement('img');
       img.src = `assets/images/selected-works/low-res/${item.sl}.jpg`;
       img.alt = item.title;
@@ -82,10 +119,51 @@ fetch('assets/images/selected-works/work-titles.json')
 
       workItem.appendChild(img);
       workItem.appendChild(titleDiv);
-
       selectedWorksContainer.appendChild(workItem);
+
+      // Attach click listener here 👇
+      workItem.addEventListener('click', () => {
+        openImageViewer(index);
+      });
     });
   })
   .catch(error => {
     console.error("Error loading work-titles.json or images:", error);
   });
+
+// Image viewer functions
+function openImageViewer(index) {
+  currentIndex = index;
+  const item = artworks[currentIndex];
+  viewerImg.src = `assets/images/selected-works/full-res/${item.sl}.jpg`;
+  viewer.classList.remove('hidden');
+}
+
+function closeViewer() {
+  viewer.classList.add('hidden');
+  viewerImg.src = '';
+}
+
+function nextImage() {
+  currentIndex = (currentIndex + 1) % artworks.length;
+  openImageViewer(currentIndex);
+}
+
+function prevImage() {
+  currentIndex = (currentIndex - 1 + artworks.length) % artworks.length;
+  openImageViewer(currentIndex);
+}
+
+function toggleFullscreen() {
+  if (!document.fullscreenElement) {
+    viewer.requestFullscreen().catch(err => console.error(err));
+  } else {
+    document.exitFullscreen();
+  }
+}
+
+// Controls
+document.getElementById('closeBtn').addEventListener('click', closeViewer);
+document.getElementById('nextBtn').addEventListener('click', nextImage);
+document.getElementById('prevBtn').addEventListener('click', prevImage);
+document.getElementById('fullscreenBtn').addEventListener('click', toggleFullscreen);
