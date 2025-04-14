@@ -55,6 +55,14 @@
   margin-top: 5rem;
 }
 
+.m-left-2{
+  margin-left: 5rem;
+}
+
+.m-right-2{
+  margin-right: 5rem;
+}
+
 .p-bottom-2{
   padding-bottom: 5rem;
 }
@@ -93,6 +101,10 @@
 
 .gap-1 {
   gap: 1rem;
+}
+
+.gap-2 {
+  gap: 2rem;
 }
 
 .gap-4 {
@@ -270,4 +282,44 @@ a {
 .publication-name{
   text-align: right;
   width: 20%
+}
+
+/* --------------- selected-works.html -------------- */
+
+.selected-works-container {
+  margin: 0 auto;
+}
+
+.work-item {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+}
+
+.work-item img {
+  display: block; /* removes default inline gap */
+  height: 35vh;
+  width: 100%; /* ensure consistency */
+}
+
+.work-title {
+  position: absolute;
+  bottom: 3%;
+  left: 3%;
+  width: 94%; /* exactly matches image width */
+  padding: 2em 1em 2em 1em;
+  color: white;
+  backdrop-filter: blur(8px);
+  background: rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  box-sizing: border-box;
+}
+
+.work-item:hover .work-title {
+  opacity: 1;
+}
+
+.work-item:hover{
+  cursor: pointer;
 }
