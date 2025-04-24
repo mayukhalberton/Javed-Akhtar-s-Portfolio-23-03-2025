@@ -414,8 +414,7 @@ a {
   max-width: 90%;
   max-height: 80vh;
   object-fit: contain;
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
-  cursor: grab; /* Indicating that the image can be dragged */
+  /* box-shadow: 0 0 20px rgba(255, 255, 255, 0.2); */
   transition: transform 0.1s ease; /* Smooth transition for zoom */
 }
 
@@ -428,14 +427,16 @@ a {
 
 .viewer-controls {
   position: absolute;
-  top: 1rem;
-  right: 1rem;
+  bottom: 3%;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
-  gap: 0.5rem;
+  gap: 1rem;
 }
 
+
 .viewer-controls button {
-  background: rgba(255, 255, 255, 0.1);
+  background: transparent;
   border: none;
   color: white;
   font-size: 1.5rem;
@@ -451,23 +452,37 @@ a {
 
 .image-title {
   position: absolute;
-  bottom: 10%;
-  left: 50%;
+  display: block;
+  bottom: 6%;
+  left: 20%;
   transform: translateX(-50%);
   color: white;
   font-size: 1.5rem;
   font-weight: bold;
-  background: rgba(0, 0, 0, 0.5);
-  padding: 0.5rem 1rem;
-  border-radius: 5px;
+}
+
+.copyright{
+  position: absolute;
+  display: block;
+  bottom: 6%;
+  right: 10%;
+  color: white;
 }
 
 .image-viewer.fullscreen {
   background: #000 !important;
 }
 
+.fullscreen .image-title {
+  display: none;
+}
+
+.fullscreen .copyright {
+  display: none;
+}
+
 .image-viewer.fullscreen .viewer-controls button:not(#fullscreenBtn),
-.image-viewer.fullscreen .image-title {
+.image-viewer.fullscreen .image-title .copyright {
   display: none;
 }
 

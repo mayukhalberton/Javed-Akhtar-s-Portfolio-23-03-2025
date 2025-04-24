@@ -32,7 +32,7 @@ fetch('assets/images/selected-works/work-titles.json')
       workItem.appendChild(titleDiv);
       selectedWorksContainer.appendChild(workItem);
 
-      // Attach click listener here 👇
+      // Attach click listener here 
       workItem.addEventListener('click', () => {
         openImageViewer(index);
       });
@@ -133,7 +133,7 @@ viewerImg.addEventListener('wheel', (e) => {
     const imageY = (mouseY - translateY) / scale;
 
     // Calculate new scale
-    const zoomFactor = 1.1;
+    const zoomFactor = 1.04;
     const oldScale = scale;
     if (e.deltaY < 0) { // Zoom in
         scale *= zoomFactor;
