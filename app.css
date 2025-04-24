@@ -51,19 +51,19 @@
   font-size: var(--fs-body);
 }
 
-.m-top-2{
+.m-top-2 {
   margin-top: 5rem;
 }
 
-.m-left-2{
+.m-left-2 {
   margin-left: 5rem;
 }
 
-.m-right-2{
+.m-right-2 {
   margin-right: 5rem;
 }
 
-.p-bottom-2{
+.p-bottom-2 {
   padding-bottom: 5rem;
 }
 
@@ -80,7 +80,7 @@
 }
 
 .align-right {
-    align-items: right;
+  align-items: right;
 }
 
 .justify-center {
@@ -92,8 +92,8 @@
 }
 
 .justify-right {
-    justify-content: right;
-  }
+  justify-content: right;
+}
 
 .justify-between {
   justify-content: space-between;
@@ -131,7 +131,7 @@
   margin: 0 auto;
 }
 
-.overflow-hidden{
+.overflow-hidden {
   overflow: hidden;
 }
 
@@ -154,44 +154,58 @@ body {
   font-family: var(--ff-primary);
   font-size: var(--fs-body);
   font-weight: var(--fw-regular);
-  height: 98%;
+  padding: 0px;
+  margin: 0px;
+  height: 100%;
   /* outline: 2px solid red; */
   overflow-x: hidden;
 }
 
 a {
-    text-decoration: none;
-    color: inherit;
+  text-decoration: none;
+  color: inherit;
 }
 
 /* Navbar */
 
 .sidebar {
-  position: fixed; /* Fixed position on the left */
+  position: fixed;
+  /* Fixed position on the left */
   top: 0;
   left: 0;
-  width: 20vw; /* Width of the sidebar */
-  height: 90%; /* Full height */
+  width: 20vw;
+  /* Width of the sidebar */
+  height: 90%;
+  /* Full height */
   padding: 40px 2.5vw;
   background-color: white;
   /* outline: 2px solid rgb(180, 12, 0); */
 }
 
 .navbar .social img {
-    height: var(--fs-large);
+  height: var(--fs-large);
 }
 
 .nav-links ul {
-    gap: 20px;
-    margin: 0;
-    padding: 0;
+  gap: 20px;
+  margin: 0;
+  padding: 0;
 }
 
 .main-content {
-    margin-left: 25vw; /* Push the body to the right, same width as the sidebar */
-    width: 75vw; /* Remaining width */
-    height: 100%;
-    /* outline: 2px solid blue; */
+  margin-left: 25vw;
+  /* Push the body to the right, same width as the sidebar */
+  width: 75vw;
+  /* Remaining width */
+  height: 100%;
+  /* outline: 2px solid blue; */
+}
+
+@media (max-width: 767.98px) {
+  .main-content {
+    margin-left: 0;
+    width: 100vw;
+  }
 }
 
 
@@ -226,16 +240,33 @@ a {
   opacity: 1;
 }
 
+@media (max-width: 767.98px) {
+  .navbar {
+    display: none;
+  }
+}
+
 /* --------------- index.html -------------- */
 
 .hero {
   overflow: hidden;
-  /* outline: 2px solid green; */
 }
 
 .hero-img {
   object-fit: cover;
   display: block;
+
+}
+
+@media (max-width: 767.98px) {
+  .hero-img {
+    object-fit: cover;
+    height: 100vh;
+    display: block;
+  }
+}
+
+@media (max-width: 575.98px) {
 
 }
 
@@ -275,11 +306,11 @@ a {
   width: 50%
 }
 
-.p-item-sec-1{
+.p-item-sec-1 {
   width: 40%
 }
 
-.publication-name{
+.publication-name {
   text-align: right;
   width: 20%
 }
@@ -291,22 +322,29 @@ a {
 }
 
 .work-item {
+  width: 30vh;
+  aspect-ratio: 1/1;
   position: relative;
-  display: inline-block;
+  display: flex;
+  justify-content: center;
   overflow: hidden;
+  background-color: rgb(241, 241, 241);
 }
 
 .work-item img {
-  display: block; /* removes default inline gap */
-  height: 35vh;
-  width: 100%; /* ensure consistency */
+  display: block;
+  /* removes default inline gap */
+  height: 100%;
+  object-fit: cover;
+  /* ensure consistency */
 }
 
 .work-title {
   position: absolute;
-  bottom: 3%;
-  left: 3%;
-  width: 94%; /* exactly matches image width */
+  bottom: 0px;
+  left: 0px;
+  width: 100%;
+  /* exactly matches image width */
   padding: 2em 1em 2em 1em;
   color: white;
   backdrop-filter: blur(8px);
@@ -320,7 +358,7 @@ a {
   opacity: 1;
 }
 
-.work-item:hover{
+.work-item:hover {
   cursor: pointer;
 }
 
@@ -331,7 +369,7 @@ a {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(0,0,0,0.5);
+  background: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(16px);
   display: flex;
   justify-content: center;
@@ -348,7 +386,16 @@ a {
   max-width: 90%;
   max-height: 80vh;
   object-fit: contain;
-  box-shadow: 0 0 20px rgba(255,255,255,0.2);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+  cursor: grab; /* Indicating that the image can be dragged */
+  transition: transform 0.1s ease; /* Smooth transition for zoom */
+}
+
+.image-viewer.fullscreen img {
+  object-fit: contain;
+  cursor: grab;  /* Cursor changes to grab for dragging */
+  width: 100vw;
+  height: 100vh;
 }
 
 .viewer-controls {
@@ -360,7 +407,7 @@ a {
 }
 
 .viewer-controls button {
-  background: rgba(255,255,255,0.1);
+  background: rgba(255, 255, 255, 0.1);
   border: none;
   color: white;
   font-size: 1.5rem;
@@ -371,7 +418,29 @@ a {
 }
 
 .viewer-controls button:hover {
-  background: rgba(255,255,255,0.3);
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.image-title {
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  font-size: 1.5rem;
+  font-weight: bold;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+}
+
+.image-viewer.fullscreen {
+  background: #000 !important;
+}
+
+.image-viewer.fullscreen .viewer-controls button:not(#fullscreenBtn),
+.image-viewer.fullscreen .image-title {
+  display: none;
 }
 
 /* --------------- contact.html -------------- */
