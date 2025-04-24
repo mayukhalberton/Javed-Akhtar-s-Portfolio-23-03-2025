@@ -250,10 +250,13 @@ a {
 
 .hero {
   overflow: hidden;
+  width: 90vw;
+  height: 80vh;
 }
 
 .hero-img {
   object-fit: cover;
+  height: 100%;
   display: block;
 
 }
@@ -303,16 +306,41 @@ a {
 /* --------------- publications.html -------------- */
 
 .publication-item {
-  width: 50%
+  position: relative;
+  /* min-width: 300px; */
+  width: 30vh;
+  height: 40vh;
+  background-color: cyan;
+  overflow: hidden;
 }
 
-.p-item-sec-1 {
-  width: 40%
+.pub-item-img-wrapper{
+  width: 100%;
 }
 
-.publication-name {
-  text-align: right;
-  width: 20%
+.pub-item-img-wrapper img{
+  width: 100%;
+  object-fit: cover;
+}
+
+.pub-item-title {
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  width: 100%;
+  padding: 2rem 4rem 2rem 1rem;
+  color: white;
+  backdrop-filter: blur(8px);
+  background: rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.publication-item:hover .pub-item-title {
+  opacity: 1;
+}
+.publication-item:hover{
+  cursor: pointer;
 }
 
 /* --------------- selected-works.html -------------- */
