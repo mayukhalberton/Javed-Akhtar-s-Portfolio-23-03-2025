@@ -119,6 +119,10 @@
   gap: 2rem;
 }
 
+.gap-3 {
+  gap: 3rem;
+}
+
 .gap-4 {
   gap: 4rem;
 }
@@ -286,7 +290,7 @@ a {
     position: absolute;
     width: 100%;
     height: 100vh;
-    background-image: linear-gradient(to bottom, rgb(255, 255, 255) 0%, rgba(255, 255, 255, 0)90%), url('assets/images/landing-page-img.jpg');
+    background-image: linear-gradient(to bottom, rgb(255, 255, 255) 0%, rgb(255, 255, 255) 15%, rgba(255, 255, 255, 0)70%), url('assets/images/landing-page-img.jpg');
     background-size: cover;
     background-position: right;
   }
@@ -300,7 +304,6 @@ a {
   .nav-mob-container{
     width: 70%;
     height: 100vh;
-
   }
 
   .copyright-mob{
