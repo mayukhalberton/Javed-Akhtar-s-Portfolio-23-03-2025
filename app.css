@@ -254,7 +254,7 @@ a {
 
 .hero {
   overflow: hidden;
-  width: 90vw;
+  width: 90%;
   height: 80vh;
 }
 
@@ -265,17 +265,42 @@ a {
 
 }
 
+.nav-mob-index {
+  display: none;
+}
+
+@media (max-width: 1199px) {}
+
 @media (max-width: 767.98px) {
-  .hero-img {
-    object-fit: cover;
+  .nav-mob-index {
+    display: flex;
+    justify-content: center;
+    padding-top: 8vh;
+    
+    position: absolute;
+    width: 100%;
     height: 100vh;
-    display: block;
+    background-image: linear-gradient(to bottom, rgb(255, 255, 255) 0%, rgba(255, 255, 255, 0)90%), url('assets/images/landing-page-img.jpg');
+    background-size: cover;
+    background-position: right;
+  }
+
+  .nav-mob-container{
+    width: 70%;
+    height: 100vh;
+
+  }
+
+  .copyright-mob{
+    margin-top: auto;
+  }
+
+  .hero {
+    display: none;
   }
 }
 
-@media (max-width: 575.98px) {
-
-}
+@media (max-width: 575.98px) {}
 
 /* --------------- about.html -------------- */
 
@@ -318,11 +343,11 @@ a {
   overflow: hidden;
 }
 
-.pub-item-img-wrapper{
+.pub-item-img-wrapper {
   width: 100%;
 }
 
-.pub-item-img-wrapper img{
+.pub-item-img-wrapper img {
   width: 100%;
   object-fit: cover;
 }
@@ -343,7 +368,8 @@ a {
 .publication-item:hover .pub-item-title {
   opacity: 1;
 }
-.publication-item:hover{
+
+.publication-item:hover {
   cursor: pointer;
 }
 
@@ -419,12 +445,14 @@ a {
   max-height: 80vh;
   object-fit: contain;
   /* box-shadow: 0 0 20px rgba(255, 255, 255, 0.2); */
-  transition: transform 0.1s ease; /* Smooth transition for zoom */
+  transition: transform 0.1s ease;
+  /* Smooth transition for zoom */
 }
 
 .image-viewer.fullscreen img {
   object-fit: contain;
-  cursor: grab;  /* Cursor changes to grab for dragging */
+  cursor: grab;
+  /* Cursor changes to grab for dragging */
   width: 90vw;
   height: 100vh;
 }
@@ -472,7 +500,7 @@ a {
   text-align: left
 } */
 
-.copyright{
+.copyright {
   position: absolute;
   display: block;
   bottom: 6%;
