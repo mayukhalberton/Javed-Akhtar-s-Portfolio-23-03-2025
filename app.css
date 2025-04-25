@@ -291,6 +291,12 @@ a {
     background-position: right;
   }
 
+  .nav-mob-index ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
   .nav-mob-container{
     width: 70%;
     height: 100vh;
