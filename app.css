@@ -51,6 +51,10 @@
   font-size: var(--fs-body);
 }
 
+.c-white {
+  color: white;
+}
+
 .m-top-2 {
   margin-top: 5rem;
 }
@@ -421,7 +425,7 @@ a {
 .image-viewer.fullscreen img {
   object-fit: contain;
   cursor: grab;  /* Cursor changes to grab for dragging */
-  width: 100vw;
+  width: 90vw;
   height: 100vh;
 }
 
@@ -457,9 +461,16 @@ a {
   left: 20%;
   transform: translateX(-50%);
   color: white;
-  font-size: 1.5rem;
-  font-weight: bold;
 }
+
+/* .work-size {
+  position: absolute;
+  display: block;
+  bottom: 1%;
+  left: 5%;
+  color: white;
+  text-align: left
+} */
 
 .copyright{
   position: absolute;
