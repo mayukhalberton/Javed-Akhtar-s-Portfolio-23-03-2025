@@ -740,4 +740,83 @@ a {
   display: none;
 }
 
+@media (max-width: 767.98px){
+  .image-viewer {
+    background: rgb(0, 0, 0);
+  }
+  
+  .image-viewer img {
+
+  }
+  
+  .image-viewer.fullscreen img {
+    object-fit: contain;
+    cursor: grab;
+    /* Cursor changes to grab for dragging */
+    width: 90vw;
+    height: 100vh;
+  }
+  
+  .viewer-controls {
+    position: absolute;
+    bottom: 3%;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 1rem;
+  }
+  
+  
+  .viewer-controls button {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    padding: 0.5em 0.8em;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background 0.3s;
+  }
+  
+  .viewer-controls button:hover {
+    background: rgba(255, 255, 255, 0.3);
+  }
+  
+  .image-title {
+    position: absolute;
+    display: block;
+    width: 40%;
+    bottom: 9%;
+    left: 25%;
+    color: white;
+    font-size: var(--fs-small);
+  }
+  
+  
+  .copyright {
+    position: absolute;
+    display: block;
+    bottom: 9%;
+    right: 10%;
+    color: white;
+  }
+  
+  .image-viewer.fullscreen {
+    background: #000 !important;
+  }
+  
+  .fullscreen .image-title {
+    display: none;
+  }
+  
+  .fullscreen .copyright {
+    display: none;
+  }
+  
+  .image-viewer.fullscreen .viewer-controls button:not(#fullscreenBtn),
+  .image-viewer.fullscreen .image-title .copyright {
+    display: none;
+  }
+}
+
 /* --------------- contact.html -------------- */
