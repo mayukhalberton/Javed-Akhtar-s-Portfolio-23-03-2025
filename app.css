@@ -354,7 +354,7 @@ a {
     height: 100vh;
     background-image: linear-gradient(to bottom, rgb(255, 255, 255) 0%, rgb(255, 255, 255) 15%, rgba(255, 255, 255, 0)70%), url('assets/images/landing-page-img.jpg');
     background-size: cover;
-    background-position: right;
+    background-position: 85% 10%;
   }
 
   .nav-mob-index ul {
