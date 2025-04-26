@@ -16,6 +16,17 @@ navLinks.forEach(link => {
   });
 });
 
+// For menu toggle on mobile
+
+const iconHam = document.querySelector('.icon-ham');
+const navLinksMob = document.querySelector('.nav-links-mob');
+
+iconHam.addEventListener('click', () => {
+  navLinksMob.classList.toggle('hide');
+  console.log('clicked');
+  console.log(navLinksMob.classList);
+});
+
 
 
 
