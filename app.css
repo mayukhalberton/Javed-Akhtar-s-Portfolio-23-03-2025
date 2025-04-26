@@ -837,3 +837,8 @@ a {
 }
 
 /* --------------- contact.html -------------- */
+
+.contact-container .contact-form {
+    max-width: 700px ;
+    width: 85%;
+}
