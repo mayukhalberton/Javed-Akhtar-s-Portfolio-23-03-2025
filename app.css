@@ -776,7 +776,7 @@ a {
   
   .viewer-controls {
     position: absolute;
-    bottom: 15%;
+    bottom: 16%;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
