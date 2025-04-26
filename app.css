@@ -756,9 +756,16 @@ a {
   }
   
   .image-viewer img {
-
   }
   
+  #viewerImage {
+    padding-bottom: 30%;
+  }
+
+  #fullscreenBtn{
+    display: none;
+  }
+
   .image-viewer.fullscreen img {
     object-fit: contain;
     cursor: grab;
@@ -769,7 +776,7 @@ a {
   
   .viewer-controls {
     position: absolute;
-    bottom: 3%;
+    bottom: 15%;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
