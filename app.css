@@ -513,6 +513,11 @@ a {
     max-width: 200px;
   }
 
+  .pub-item-img-wrapper img {
+    width: 20vh;
+    aspect-ratio: 3/4;
+  }
+
   .publication-item {
     position: static;
     overflow: visible;
@@ -543,6 +548,11 @@ a {
 
   .pub-item-title {
     font-size: var(--fs-medium);
+  }
+
+  .pub-item-img-wrapper img {
+    width: 28vh;
+    aspect-ratio: 3/4;
   }
   
 }
