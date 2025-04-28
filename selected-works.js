@@ -83,7 +83,7 @@ let startX, startY; // For mouse drag OR single touch pan/swipe start
 let initialTranslateX = 0, initialTranslateY = 0; // Pan start position
 let translateX = 0, translateY = 0; // Current translation
 let scale = 1; // Current scale
-const maxScale = 5; // <<< Adjusted Max Zoom Level for touch
+const maxScale = 2.3; // <<< Adjusted Max Zoom Level for touch
 const zoomFactor = 1.07; // For wheel zoom
 
 // --- Touch specific state ---
@@ -112,12 +112,13 @@ document.addEventListener('fullscreenchange', () => {
     resetImageTransform();
     viewerImg.style.cursor = 'grab';
     fullscreenBtn.textContent = '✕';
+    fullscreenBtn.setAttribute('color', 'white');
   } else {
     if (viewer.classList.contains('fullscreen')) {
       viewer.classList.remove('fullscreen');
       resetImageTransform();
       viewerImg.style.cursor = 'default';
-      fullscreenBtn.textContent = '⛶';
+      fullscreenBtn.innerHTML = `<img src="assets/images/fullscreen-icon-black.svg" alt="">`;
     }
   }
   // Reset touch state on fullscreen change
