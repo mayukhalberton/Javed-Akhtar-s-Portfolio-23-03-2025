@@ -205,7 +205,8 @@ a {
   top: 0;
   left: 0;
   width: 20vw;
-  height: 90%;
+  height: 70%;
+  margin-top: 3rem;
   padding: 40px 2.5vw;
   background-color: white;
 }
@@ -260,7 +261,7 @@ a {
   right: 10px;
   height: 100%;
   width: 100%;
-  border: 2px solid black;
+  background-color: #0000000e;
   opacity: 0;
   transition: opacity 0.2s ease;
   z-index: -1;
@@ -382,19 +383,17 @@ a {
 .about-container {
   display: flex;
   justify-content: center;
-  align-items: center;
+  /* align-items: center; */
   gap: 2rem;
-  width: 90%;
+  width: 95%;
 }
 
 .about-text {
-  margin: 50px 0 0 0;
+  text-align: justify;
   width: 50%;
-  padding: 30px;
 }
 
 .about-image {
-  margin: 50px 0 0 0;
   width: 50%;
   height: 100%;
   display: flex;
@@ -559,12 +558,13 @@ a {
 
 /* --------------- selected-works.html -------------- */
 
-.selected-works-container {
-  margin: 0 auto;
+.slected-works-container {
+  width: 95%;
+  justify-content: center;
 }
 
 .work-item {
-  width: 30vh;
+  width:29%;
   aspect-ratio: 1/1;
   position: relative;
   display: flex;
@@ -577,17 +577,22 @@ a {
 .work-item img {
   display: block;
   /* removes default inline gap */
-  width: 90%;
-  object-fit: cover;
+  max-width: 95%;
+  max-height: 95%;
+  width: 95%;
+  object-fit: contain;
   /* ensure consistency */
 }
 
 .work-title {
   position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   bottom: 0px;
   left: 0px;
   width: 100%;
-  /* exactly matches image width */
+  height: 100%;
   padding: 2em 1em 2em 1em;
   color: white;
   backdrop-filter: blur(8px);
@@ -615,19 +620,20 @@ a {
   }
 
   .work-item {
-    width: 30vh;
-    aspect-ratio: 0/0;
+    width: 80%;
+    aspect-ratio: 1/1;
     position: static;
     display: flex;
     flex-direction: column;
   }
 
   .work-item img {
-    padding-top: 10px;
+    /* padding-top: 10px; */
   }
 
   
   .work-title {
+    display: none;
     position: static;
     width: 100%;
     background: transparent;

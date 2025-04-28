@@ -5,7 +5,6 @@ const viewerImg = document.getElementById('viewerImage');
 const imageTitle = document.getElementById('imageTitle'); // Get title element
 const fullscreenBtn = document.getElementById('fullscreenBtn');
 
-// Gemini Code
 let holdTimeout;
 const holdDelay = 50; // Milliseconds to wait before drag starts
 
@@ -28,7 +27,7 @@ fetch('assets/images/selected-works/work-titles.json')
 
       const titleDiv = document.createElement('div');
       titleDiv.classList.add('work-title', 'fs-small', 'fw-extra-bold');
-      titleDiv.innerHTML = `${item.title},<br><br><span class="work-size fw-regular">${item.size}</span>`;
+      titleDiv.innerHTML = `${item.title}<br><span class="work-size fw-regular">${item.year}</span>`;
 
       workItem.appendChild(img);
       workItem.appendChild(titleDiv);
@@ -48,7 +47,7 @@ function openImageViewer(index) {
   currentIndex = index;
   const item = artworks[currentIndex];
   viewerImg.src = `assets/images/selected-works/full-res/${item.sl}.jpg`;
-  imageTitle.innerHTML = `${item.title},<br><span class="work-size fw-regular">${item.size}</span>`;
+  imageTitle.innerHTML = `${item.title}<br><span class="work-size fw-regular">${item.year}</span>`;
   viewer.classList.remove('hidden');
   resetImageTransform();
   // Reset touch state when opening
