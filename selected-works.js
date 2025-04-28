@@ -94,6 +94,11 @@ let initialScale = 1; // Store scale at pinch start
 const swipeThreshold = 50; // Min horizontal distance for a swipe
 const verticalSwipeThreshold = 75; // Max vertical distance for a swipe
 
+// --- Pinch zoom specific state ---
+let pinchCenterX = 0, pinchCenterY = 0;
+let pinchImageX = 0, pinchImageY = 0;
+
+
 function toggleFullscreen() {
   if (!document.fullscreenElement) {
     viewer.requestFullscreen().catch(err => {
@@ -109,19 +114,20 @@ function toggleFullscreen() {
 document.addEventListener('fullscreenchange', () => {
   if (document.fullscreenElement === viewer) {
     viewer.classList.add('fullscreen');
-    resetImageTransform();
-    viewerImg.style.cursor = 'grab';
+    resetImageTransform(); // Reset zoom/pan on entering fullscreen
+    viewerImg.style.cursor = 'grab'; // Initial cursor for fullscreen
     fullscreenBtn.textContent = '✕';
     fullscreenBtn.setAttribute('color', 'white');
   } else {
+    // Check if the viewer *was* the fullscreen element before exiting
     if (viewer.classList.contains('fullscreen')) {
-      viewer.classList.remove('fullscreen');
-      resetImageTransform();
-      viewerImg.style.cursor = 'default';
-      fullscreenBtn.innerHTML = `<img src="assets/images/fullscreen-icon-black.svg" alt="">`;
+         viewer.classList.remove('fullscreen');
+         resetImageTransform(); // Reset zoom/pan on exiting fullscreen
+         viewerImg.style.cursor = 'default'; // Reset cursor
+         fullscreenBtn.innerHTML = `<img src="assets/images/fullscreen-icon-black.svg" alt="">`;
     }
   }
-  // Reset touch state on fullscreen change
+  // Reset touch state on fullscreen change regardless
   resetTouchState();
 });
 
@@ -131,7 +137,7 @@ function resetImageTransform() {
   translateY = 0;
   initialTranslateX = 0;
   initialTranslateY = 0;
-  viewerImg.style.transformOrigin = 'top left';
+  viewerImg.style.transformOrigin = 'top left'; // Keep origin consistent
   viewerImg.style.transform = 'scale(1) translate(0px, 0px)';
   viewerImg.style.cursor = viewer.classList.contains('fullscreen') ? 'grab' : 'default';
 }
@@ -144,95 +150,119 @@ function resetTouchState() {
     touchStartX = null;
     touchStartY = null;
     initialPinchDistance = null;
-    initialScale = scale; // Reset initial scale for pinch
+    initialScale = scale; // Reset initial scale for pinch based on current scale
+    // Reset pinch center variables too
+    pinchCenterX = 0;
+    pinchCenterY = 0;
+    pinchImageX = 0;
+    pinchImageY = 0;
 }
 
 // Apply transform and enforce boundaries
 function applyTransform() {
+  // Only apply boundaries when zoomed in and in fullscreen
   if (scale > 1 && viewer.classList.contains('fullscreen')) {
-    const rect = viewerImg.getBoundingClientRect();
-    const viewerWidth = viewer.clientWidth;
-    const viewerHeight = viewer.clientHeight;
-    const scaledWidth = rect.width;
-    const scaledHeight = rect.height;
+    // Use requestAnimationFrame to get dimensions after potential layout changes
+    requestAnimationFrame(() => {
+        const rect = viewerImg.getBoundingClientRect();
+        const viewerWidth = viewer.clientWidth;
+        const viewerHeight = viewer.clientHeight;
+        // Image dimensions scaled, relative to viewport
+        const scaledWidth = viewerImg.offsetWidth * scale;
+        const scaledHeight = viewerImg.offsetHeight * scale;
 
-    const minX = Math.min(0, viewerWidth - scaledWidth);
-    const maxX = 0;
-    const minY = Math.min(0, viewerHeight - scaledHeight);
-    const maxY = 0;
+        // Calculate boundaries based on the *visual* container size and scaled image size
+        // Max translate allows the image edge to meet the container edge
+        const maxX = 0; // Cannot move left past the container's left edge
+        const minX = viewerWidth - scaledWidth; // Max leftward movement allowed
+        const maxY = 0; // Cannot move up past the container's top edge
+        const minY = viewerHeight - scaledHeight; // Max downward movement allowed
 
-    translateX = Math.max(minX, Math.min(maxX, translateX));
-    translateY = Math.max(minY, Math.min(maxY, translateY));
+        // Clamp translation within calculated boundaries
+        // Use Math.max(minX, ...) and Math.min(maxX, ...)
+        translateX = Math.max(minX, Math.min(maxX, translateX));
+        translateY = Math.max(minY, Math.min(maxY, translateY));
+
+        viewerImg.style.transform = `scale(${scale}) translate(${translateX}px, ${translateY}px)`;
+    });
 
   } else {
-    // Prevent panning if not zoomed or not fullscreen
+    // If not zoomed or not fullscreen, reset/force default state
+    if (scale < 1) scale = 1; // Ensure scale doesn't go below 1
     translateX = 0;
     translateY = 0;
-    // If scale somehow became less than 1 (e.g., during pinch), reset it
-    if (scale < 1) scale = 1;
+    viewerImg.style.transform = `scale(${scale}) translate(${translateX}px, ${translateY}px)`;
   }
-
-  viewerImg.style.transform = `scale(${scale}) translate(${translateX}px, ${translateY}px)`;
 }
 
 
-// === MOUSE Event Listeners (Keep Existing) ===
+// === MOUSE Event Listeners ===
 
 // Zoom Listener (Wheel event)
 viewerImg.addEventListener('wheel', (e) => {
-  // Prevent wheel zoom if a touch interaction is happening
   if (isTouching || !viewer.classList.contains('fullscreen')) return;
   e.preventDefault();
 
   const rect = viewerImg.getBoundingClientRect();
-  const mouseX = e.clientX; // Use clientX for consistency with touch
-  const mouseY = e.clientY;
-  const elementMouseX = mouseX - rect.left;
-  const elementMouseY = mouseY - rect.top;
-  const imageContentX = (elementMouseX - translateX) / scale;
-  const imageContentY = (elementMouseY - translateY) / scale;
+  // Calculate mouse position relative to the element's top-left corner
+  const mouseX = e.clientX - rect.left;
+  const mouseY = e.clientY - rect.top;
+
+  // Calculate where the mouse is pointing on the *unjomed, untranslated* image content
+  const imageContentX = (mouseX - translateX) / scale;
+  const imageContentY = (mouseY - translateY) / scale;
 
   const oldScale = scale;
   if (e.deltaY < 0) { scale *= zoomFactor; }
   else { scale /= zoomFactor; }
-  scale = Math.max(1, Math.min(scale, maxScale));
+  scale = Math.max(1, Math.min(scale, maxScale)); // Clamp scale
 
-  if (scale === oldScale) return;
+  if (scale === oldScale) return; // No change, do nothing
 
-  translateX = elementMouseX - imageContentX * scale;
-  translateY = elementMouseY - imageContentY * scale;
+  // Adjust translation to keep the pointed-at content under the mouse cursor
+  translateX = mouseX - imageContentX * scale;
+  translateY = mouseY - imageContentY * scale;
+
+  // Update cursor based on new scale
+  viewerImg.style.cursor = scale > 1 ? 'grab' : 'default';
+
   applyTransform();
 });
 
 // Drag Listeners (Mouse Panning)
 viewerImg.addEventListener('mousedown', (e) => {
-  // Prevent mouse pan if touch is active or not suitable condition
   if (isTouching || !viewer.classList.contains('fullscreen') || scale <= 1) return;
   e.preventDefault();
 
-  isMouseDown = true; // Use dedicated mouse flag
-  isDragging = false;
-  startX = e.pageX;
-  startY = e.pageY;
+  isMouseDown = true;
+  isDragging = false; // Reset drag flag
+  startX = e.clientX; // Use clientX for consistency
+  startY = e.clientY;
   initialTranslateX = translateX;
   initialTranslateY = translateY;
+  viewerImg.style.cursor = 'grabbing'; // Indicate potential drag
 
-  clearTimeout(holdTimeout);
-  holdTimeout = setTimeout(() => {
-    if (isMouseDown) { // Check mouse flag
-      isDragging = true;
-      viewerImg.style.cursor = 'grabbing';
-    }
-  }, holdDelay);
+  // Keep the holdTimeout logic if you want a slight delay before drag confirms
+  // If not, you can set isDragging = true immediately here (if scale > 1)
+  // For simplicity, let's assume immediate drag intention if conditions met
+  // isDragging = true; // Uncomment this if removing holdTimeout
+
+   clearTimeout(holdTimeout); // Clear any previous timeout
+   holdTimeout = setTimeout(() => {
+     if (isMouseDown) { // Check if mouse is still down after delay
+       isDragging = true; // Confirm drag start
+       // Cursor is already set to grabbing on mousedown
+     }
+   }, holdDelay);
 });
 
 document.addEventListener('mousemove', (e) => {
-  // Important: Check isMouseDown, not isTouching
-  if (!isDragging || !isMouseDown || !viewer.classList.contains('fullscreen') || scale <= 1) return;
-  e.preventDefault();
+  // Only pan if mouse is down AND dragging has been confirmed (or if no delay is used)
+  if (!isMouseDown || !isDragging || !viewer.classList.contains('fullscreen') || scale <= 1) return;
+  // No preventDefault here, handled by mousedown/touchstart if needed
 
-  const currentX = e.pageX;
-  const currentY = e.pageY;
+  const currentX = e.clientX;
+  const currentY = e.clientY;
   const deltaX = currentX - startX;
   const deltaY = currentY - startY;
 
@@ -242,48 +272,69 @@ document.addEventListener('mousemove', (e) => {
 });
 
 document.addEventListener('mouseup', (e) => {
-  // Check isMouseDown
-  if (!isMouseDown) return; // Only handle mouseup if mousedown occurred
+  if (!isMouseDown) return; // Ensure this mouseup corresponds to our mousedown
 
-  clearTimeout(holdTimeout);
-  isMouseDown = false; // Reset mouse flag
-  if (isDragging) {
-      isDragging = false; // Reset dragging flag specifically
-      // Only reset cursor if dragging actually happened
-      viewerImg.style.cursor = scale > 1 && viewer.classList.contains('fullscreen') ? 'grab' : 'default';
+  clearTimeout(holdTimeout); // Clear delay timer
+  const wasDragging = isDragging; // Check if a drag actually occurred
+
+  // Reset mouse and drag states
+  isMouseDown = false;
+  isDragging = false;
+
+  // Reset cursor based on whether it *can* be grabbed now
+  viewerImg.style.cursor = scale > 1 && viewer.classList.contains('fullscreen') ? 'grab' : 'default';
+
+  // --- NEW: Check for simple click for navigation ---
+  // Only navigate if it wasn't a drag and not in fullscreen
+  if (!wasDragging && !viewer.classList.contains('fullscreen')) {
+      const rect = viewerImg.getBoundingClientRect();
+      const clickX = e.clientX;
+      const relativeX = clickX - rect.left;
+
+      if (relativeX < rect.width / 2) {
+          // Clicked on left half
+          prevImage();
+      } else {
+          // Clicked on right half
+          nextImage();
+      }
   }
 });
 
-// Mouse Leave listeners (mostly okay, ensure they check isMouseDown)
+// Mouse Leave listeners
 viewerImg.addEventListener('mouseleave', () => {
-    if (isMouseDown) { // If mouse leaves while pressed, cancel the drag
+    if (isMouseDown) { // If mouse leaves while pressed, treat as mouseup
         clearTimeout(holdTimeout);
         isMouseDown = false;
         isDragging = false;
-         if (viewer.classList.contains('fullscreen')) {
-             viewerImg.style.cursor = scale > 1 ? 'grab' : 'default';
-         }
-    } else if (!isTouching && viewer.classList.contains('fullscreen')) { // Reset cursor if just hovering out
-         viewerImg.style.cursor = scale > 1 ? 'grab' : 'default';
+        // Reset cursor based on potential grab state if viewer still active
+        if (viewer.classList.contains('fullscreen')) {
+           viewerImg.style.cursor = scale > 1 ? 'grab' : 'default';
+        } else {
+           viewerImg.style.cursor = 'default';
+        }
     }
+    // No else needed, cursor reset handled by mouseup/fullscreenchange
 });
+// mouseenter doesn't need much change, cursor is set on open/zoom/fullscreenchange
 viewerImg.addEventListener('mouseenter', () => {
-    if (!isMouseDown && !isTouching && viewer.classList.contains('fullscreen')) {
-       viewerImg.style.cursor = scale > 1 ? 'grab' : 'default';
+    // Maybe reset cursor if needed, but other events should handle it
+    if (!isMouseDown && viewer.classList.contains('fullscreen')) {
+        viewerImg.style.cursor = scale > 1 ? 'grab' : 'default';
+    } else if (!isMouseDown) {
+         viewerImg.style.cursor = 'default';
     }
 });
 
 
 // === TOUCH Event Listeners ===
 
-// Function to calculate distance between two touches
 function getPinchDistance(touches) {
   const touch1 = touches[0];
   const touch2 = touches[1];
   return Math.hypot(touch2.clientX - touch1.clientX, touch2.clientY - touch1.clientY);
 }
 
-// Function to calculate the midpoint between two touches
 function getPinchMidpoint(touches) {
     const touch1 = touches[0];
     const touch2 = touches[1];
@@ -294,27 +345,33 @@ function getPinchMidpoint(touches) {
 }
 
 viewerImg.addEventListener('touchstart', (e) => {
-  // Don't interfere if mouse is already down (edge case for hybrid devices)
-  if (isMouseDown) return;
+  if (isMouseDown) return; // Don't handle touch if mouse is already interacting
 
-  isTouching = true;
+  isTouching = true; // General touch flag
   const touches = e.touches;
+
+  // Prevent default actions like scrolling/zooming page ONLY if we intend to handle the touch
+  // This needs to be conditional based on context (e.g., fullscreen, number of touches)
 
   if (touches.length === 1) {
     // Potential Pan or Swipe Start
     const touch = touches[0];
-    touchStartX = touch.clientX; // Use clientX for consistency
+    touchStartX = touch.clientX;
     touchStartY = touch.clientY;
-    isDragging = false; // Reset drag flag for touch
+    isDragging = false; // Reset flag for this interaction
     isPinching = false;
 
     // If fullscreen and zoomed, prepare for panning
     if (viewer.classList.contains('fullscreen') && scale > 1) {
+        e.preventDefault(); // Prevent scrolling page when panning image
         startX = touch.clientX; // Use touch coords for panning start
         startY = touch.clientY;
         initialTranslateX = translateX;
         initialTranslateY = translateY;
+        // Set isDragging immediately or use a delay like mouse? For touch, immediate often feels better.
+        // Let's tentatively set isDragging flag later in touchmove if movement occurs.
     }
+     // If NOT fullscreen, don't prevent default yet, allow potential vertical scroll
 
   } else if (touches.length === 2 && viewer.classList.contains('fullscreen')) {
     // Pinch Start (only in fullscreen)
@@ -323,18 +380,20 @@ viewerImg.addEventListener('touchstart', (e) => {
     isDragging = false; // Not panning when pinching
     initialPinchDistance = getPinchDistance(touches);
     initialScale = scale; // Store scale at the beginning of the pinch
+
     // Store pinch center relative to the element for zoom centering
     const midpoint = getPinchMidpoint(touches);
     const rect = viewerImg.getBoundingClientRect();
+    // Calculate pinch center relative to the element's top-left
     pinchCenterX = midpoint.x - rect.left;
     pinchCenterY = midpoint.y - rect.top;
     // Calculate the image content point under the pinch center
     pinchImageX = (pinchCenterX - translateX) / scale;
     pinchImageY = (pinchCenterY - translateY) / scale;
-
-
   }
-}, { passive: false }); // Need active listener to call preventDefault reliably
+  // If > 2 touches or other scenarios, do nothing special / allow default
+
+}, { passive: false }); // Need active listener to conditionally call preventDefault
 
 viewerImg.addEventListener('touchmove', (e) => {
   if (!isTouching) return; // Only handle if touch started on the element
@@ -343,26 +402,30 @@ viewerImg.addEventListener('touchmove', (e) => {
 
   if (isPinching && touches.length === 2 && viewer.classList.contains('fullscreen')) {
     // Pinch Zoom Move
-    e.preventDefault(); // Prevent scrolling/other actions during pinch
+    e.preventDefault(); // Continue preventing default during pinch
 
     const currentDist = getPinchDistance(touches);
     if (initialPinchDistance === null || initialPinchDistance === 0) return; // Avoid division by zero
 
     const scaleChange = currentDist / initialPinchDistance;
-    const newScale = initialScale * scaleChange;
+    let newScale = initialScale * scaleChange;
 
     // Apply scale limits
-    scale = Math.max(1, Math.min(newScale, maxScale));
+    newScale = Math.max(1, Math.min(newScale, maxScale));
 
-    // Adjust translation to keep pinch center stable
-    // newTranslateX = pinchCenterX - pinchImageX * newScale
-    translateX = pinchCenterX - pinchImageX * scale;
-    translateY = pinchCenterY - pinchImageY * scale;
+    // Only update if scale actually changed to avoid jitter
+    if (newScale !== scale) {
+        scale = newScale;
 
-    applyTransform();
+        // Adjust translation to keep pinch center stable relative to content
+        translateX = pinchCenterX - pinchImageX * scale;
+        translateY = pinchCenterY - pinchImageY * scale;
+
+        applyTransform();
+    }
 
   } else if (!isPinching && touches.length === 1) {
-    // Single finger move: Pan (if fullscreen & zoomed) or Swipe detection
+    // Single finger move: Potential Pan or Swipe
     const touch = touches[0];
     const currentX = touch.clientX;
     const currentY = touch.clientY;
@@ -372,21 +435,25 @@ viewerImg.addEventListener('touchmove', (e) => {
     const deltaX = currentX - touchStartX;
     const deltaY = currentY - touchStartY;
 
+    // Panning (only if fullscreen and zoomed)
     if (viewer.classList.contains('fullscreen') && scale > 1) {
-      // Panning
-      e.preventDefault(); // Prevent page scroll during panning
-      isDragging = true; // Indicate panning is happening
-      translateX = initialTranslateX + deltaX;
-      translateY = initialTranslateY + deltaY;
-      applyTransform();
-    } else if (!viewer.classList.contains('fullscreen')) {
-        // Swipe detection (Non-fullscreen only)
-        // Only prevent default if horizontal movement is dominant, indicating potential swipe
-        if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 10) {
-             e.preventDefault(); // Prevent vertical scroll if swiping horizontally
+        // If panning hasn't started yet (isDragging is false), check movement threshold? Or just start.
+        if (!isDragging) {
+            // Optionally add a small threshold check here if needed
+             isDragging = true; // Start panning
         }
-        // Optionally add visual feedback during swipe (e.g., slight horizontal move)
-        // viewerImg.style.transform = `translateX(${deltaX * 0.3}px)`; // Example feedback
+        // Prevent page scroll during image panning
+        e.preventDefault();
+        translateX = initialTranslateX + deltaX;
+        translateY = initialTranslateY + deltaY;
+        applyTransform();
+    } else if (!viewer.classList.contains('fullscreen')) {
+        // Swipe detection logic (Non-fullscreen only)
+        // Prevent vertical scroll ONLY if horizontal movement is dominant, suggesting a swipe
+        if (Math.abs(deltaX) > Math.abs(deltaY) * 1.5 && Math.abs(deltaX) > 10) { // Adjust multiplier as needed
+            e.preventDefault();
+        }
+        // We don't set isDragging here, swipe is determined on touchend
     }
   }
 }, { passive: false }); // Need active listener for preventDefault
@@ -394,59 +461,78 @@ viewerImg.addEventListener('touchmove', (e) => {
 viewerImg.addEventListener('touchend', (e) => {
   if (!isTouching) return;
 
-  // If pinch was active, finalize scale/position
+  const touches = e.touches; // Touches still on the screen
+  const changedTouches = e.changedTouches; // Touches that were lifted
+
   if (isPinching) {
-    // The final transform is already applied in touchmove
-     // No specific action needed here other than resetting state below
-  } else if (touchStartX !== null) {
-     // Single finger interaction ended
-     if (isDragging) {
-         // Panning ended (was fullscreen and zoomed)
-         // Final transform applied in touchmove
-     } else if (!viewer.classList.contains('fullscreen')) {
-        // Check for Swipe (Not fullscreen)
-        const touch = e.changedTouches[0]; // Use changedTouches for end coordinates
-        const endX = touch.clientX;
-        const endY = touch.clientY;
-        const deltaX = endX - touchStartX;
-        const deltaY = endY - touchStartY;
-
-        // Reset visual feedback if any was applied
-        // viewerImg.style.transform = 'translateX(0px)';
-
-        if (Math.abs(deltaX) > swipeThreshold && Math.abs(deltaY) < verticalSwipeThreshold) {
-          // Significant horizontal swipe, minimal vertical movement
-          if (deltaX < 0) {
-            // Swiped Left
-            nextImage();
-          } else {
-            // Swiped Right
-            prevImage();
+    // Pinch ended
+    if (touches.length < 2) {
+      // Fewer than two fingers remain, pinch is definitely over
+      isPinching = false;
+      // If one finger remains, transition to potential pan state
+      if (touches.length === 1) {
+          const touch = touches[0];
+          touchStartX = touch.clientX;
+          touchStartY = touch.clientY;
+          // Prepare for potential panning if conditions met
+          if (viewer.classList.contains('fullscreen') && scale > 1) {
+              startX = touch.clientX;
+              startY = touch.clientY;
+              initialTranslateX = translateX;
+              initialTranslateY = translateY;
           }
-           // Reset state immediately after navigation to prevent issues
-           resetTouchState();
-           return; // Exit early as navigation handles reset
-        }
-     }
+      } else { // touches.length === 0
+          resetTouchState();
+      }
+    }
+    // applyTransform might be needed one last time if boundaries changed scale slightly
+    applyTransform();
+
+  } else if (touchStartX !== null && changedTouches.length === 1) {
+      // Single finger interaction ended (Tap, Swipe, or Pan end)
+      const touch = changedTouches[0];
+      const endX = touch.clientX;
+      const endY = touch.clientY;
+      const deltaX = endX - touchStartX;
+      const deltaY = endY - touchStartY;
+
+      if (isDragging) {
+          // Panning ended (was fullscreen and zoomed)
+          // The final transform was applied in touchmove. Reset drag flag.
+          isDragging = false;
+          // Boundary check might be needed again if the last move was clamped
+           applyTransform();
+      } else if (!viewer.classList.contains('fullscreen')) {
+          // Check for Swipe or Tap (Not fullscreen)
+
+          // Check for SWIPE first
+          if (Math.abs(deltaX) > swipeThreshold && Math.abs(deltaY) < verticalSwipeThreshold) {
+              if (deltaX < 0) { nextImage(); }
+              else { prevImage(); }
+              // State is reset inside openImageViewer/resetTouchState called by it
+              resetTouchState(); // Explicitly reset here too just in case
+              return; // Exit early, navigation happened
+          }
+          // Check for TAP navigation second (if it wasn't a swipe)
+          // Make sure it wasn't a small drag attempt (e.g., check if deltaX/Y are small)
+          else if (Math.abs(deltaX) < 10 && Math.abs(deltaY) < 10) { // Threshold for tap vs accidental small move
+                const rect = viewerImg.getBoundingClientRect();
+                const clickX = endX; // Use end coordinates for tap location
+                const relativeX = clickX - rect.left;
+                if (relativeX < rect.width / 2) {
+                    prevImage();
+                } else {
+                    nextImage();
+                }
+                resetTouchState(); // Reset state after tap navigation
+                return; // Exit early
+          }
+      }
   }
 
-  // Reset all touch-related states if interaction ends
-  // Check touches length because another finger might still be down
-  if (e.touches.length === 0) {
-     resetTouchState();
-  } else if (e.touches.length === 1 && isPinching) {
-      // If one finger lifts during a pinch, reset pinch state and treat as single touch start
-      isPinching = false;
-      const touch = e.touches[0];
-      touchStartX = touch.clientX;
-      touchStartY = touch.clientY;
-      // Prepare for potential panning if needed
-      if (viewer.classList.contains('fullscreen') && scale > 1) {
-        startX = touch.clientX;
-        startY = touch.clientY;
-        initialTranslateX = translateX;
-        initialTranslateY = translateY;
-      }
+  // If no specific action caused an early return, check if interaction fully ended
+  if (touches.length === 0) {
+      resetTouchState(); // Reset all touch states if no fingers remain
   }
 
 });
@@ -455,32 +541,47 @@ viewerImg.addEventListener('touchend', (e) => {
 viewerImg.addEventListener('touchcancel', (e) => {
     // Treat cancellation same as touchend for resetting state
     resetTouchState();
+    // Reset cursor maybe?
+    viewerImg.style.cursor = viewer.classList.contains('fullscreen') && scale > 1 ? 'grab' : 'default';
 });
 
 
-// === Other Controls (Keep Existing) ===
+// === Other Controls ===
 document.getElementById('closeBtn').addEventListener('click', closeViewer);
 document.getElementById('nextBtn').addEventListener('click', nextImage);
 document.getElementById('prevBtn').addEventListener('click', prevImage);
 document.getElementById('fullscreenBtn').addEventListener('click', toggleFullscreen);
 
 document.addEventListener('keydown', (e) => {
-  if (viewer.classList.contains('hidden')) return;
+  if (viewer.classList.contains('hidden')) return; // Only act if viewer is visible
 
   switch (e.key) {
     case 'Escape':
-      if (document.fullscreenElement === viewer) { document.exitFullscreen(); }
-      else { closeViewer(); }
+      if (document.fullscreenElement === viewer) {
+          document.exitFullscreen();
+      } else {
+          closeViewer();
+      }
       break;
-    case 'ArrowRight': nextImage(); break;
-    case 'ArrowLeft': prevImage(); break;
-    case 'f': case 'F': toggleFullscreen(); break;
+    case 'ArrowRight':
+        nextImage();
+        break;
+    case 'ArrowLeft':
+        prevImage();
+        break;
+    case 'f': case 'F': // Toggle fullscreen with 'f' key
+        toggleFullscreen();
+        break;
+    // Add '+' and '-' for zoom maybe?
+    // case '+': if (viewer.classList.contains('fullscreen')) { /* zoom in logic */ } break;
+    // case '-': if (viewer.classList.contains('fullscreen')) { /* zoom out logic */ } break;
   }
 });
 
-viewer.addEventListener('click', (e) => {
-  // Allow click to close only if not fullscreen AND not a drag/touch interaction end
-  if (!viewer.classList.contains('fullscreen') && e.target === viewer && !isDragging && !isTouching) {
-    closeViewer();
-  }
-});
+// --- REMOVED viewer background click listener ---
+// viewer.addEventListener('click', (e) => {
+//  // Allow click to close only if not fullscreen AND not a drag/touch interaction end
+//  if (!viewer.classList.contains('fullscreen') && e.target === viewer && !isDragging && !isTouching) {
+//    closeViewer();
+//  }
+// });
