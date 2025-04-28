@@ -383,7 +383,7 @@ a {
 .about-container {
   display: flex;
   justify-content: center;
-  /* align-items: center; */
+  margin-top: 5rem;
   gap: 2rem;
   width: 95%;
 }
@@ -419,6 +419,7 @@ a {
   .about-container {
     width: 80%;
     padding: 5vh 0 10vh 0;
+    margin-top: 0;
     flex-direction: column-reverse;
     justify-content: center;
     align-items: center;
