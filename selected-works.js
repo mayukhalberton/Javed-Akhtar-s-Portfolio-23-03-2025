@@ -47,7 +47,7 @@ function openImageViewer(index) {
   currentIndex = index;
   const item = artworks[currentIndex];
   viewerImg.src = `assets/images/selected-works/full-res/${item.sl}.jpg`;
-  imageTitle.innerHTML = `${item.title}<br><span class="work-size fw-regular">${item.year}</span>`;
+  imageTitle.innerHTML = `${item.title}, <span class="work-size fw-extra-bold">${item.year}</span><br><span class="fw-regular">${item.size} <br> ${item.type}</span>`;
   viewer.classList.remove('hidden');
   resetImageTransform();
   // Reset touch state when opening
@@ -117,7 +117,6 @@ document.addEventListener('fullscreenchange', () => {
     resetImageTransform(); // Reset zoom/pan on entering fullscreen
     viewerImg.style.cursor = 'grab'; // Initial cursor for fullscreen
     fullscreenBtn.textContent = '✕';
-    fullscreenBtn.setAttribute('color', 'white');
   } else {
     // Check if the viewer *was* the fullscreen element before exiting
     if (viewer.classList.contains('fullscreen')) {

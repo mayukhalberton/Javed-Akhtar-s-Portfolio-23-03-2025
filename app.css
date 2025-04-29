@@ -445,16 +445,25 @@ a {
 
 /* --------------- publications.html -------------- */
 
+
+
 .publication-container {
+  display: flex;
+  justify-content: center;
+  /* outline: 1px solid lavender; */
   width: 90%;
+}
+
+.publication-container .flex {
+  width: 90%;
+  gap: 3rem;
 }
 
 .publication-item {
   position: relative;
-  /* min-width: 300px; */
-  width: 25vh;
+  width: 28%;
   aspect-ratio: 3/4;
-  max-width: 300px;
+  min-width: 100px;
   overflow: hidden;
 }
 
@@ -472,7 +481,13 @@ a {
   bottom: 0px;
   left: 0px;
   width: 100%;
-  padding: 2rem 4rem 2rem 1rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  text-align: center;
+  padding-bottom: 2rem;
   color: white;
   backdrop-filter: blur(8px);
   background: rgba(0, 0, 0, 0.4);
@@ -490,71 +505,48 @@ a {
 }
 
 @media (max-width: 1199px){
+  .publication-item{
+    width: 40%;
+  }
+}
+
+@media (max-width: 767.98px){
+
   .main-content-pub {
     display: flex;
     justify-content: center;
-
   }
-
-  .publication-container {
-    display: flex;
-    justify-content: center;
-    width: 90%;
-  }
-
   .publication-container .flex {
-    width: 100%;
+    flex-direction: row;
     justify-content: center;
+    /* width: 100%; */
+    gap: 3rem;
   }
 
   .publication-item {
-    width: 20vh;
     aspect-ratio: 3/4;
-    max-width: 200px;
-  }
-
-  .pub-item-img-wrapper img {
-    width: 20vh;
-    aspect-ratio: 3/4;
-  }
-
-  .publication-item {
-    position: static;
+    width: 60%;
     overflow: visible;
   }
 
-  .publication-item .pub-item-title {
-    position:static;
-    width: 100%;
-    padding: 0;
+  .pub-item-title {
+    position: static;
+    width: auto;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    text-align: center;
+    padding-bottom: 2rem;
     color: rgb(0, 0, 0);
     backdrop-filter: none;
     background: transparent;
     opacity: 1;
     transition: none;
-  }
-}
-
-@media (max-width: 767.98px){
-  
-  .publication-item {
-    width: 28vh;
-    max-width: 400px;
+    font-size: var(--fs-small);
   }
 
-  .publication-container {
-    width: 80%;
-  }
-
-  .pub-item-title {
-    font-size: var(--fs-medium);
-  }
-
-  .pub-item-img-wrapper img {
-    width: 28vh;
-    aspect-ratio: 3/4;
-  }
-  
 }
 
 /* --------------- selected-works.html -------------- */
@@ -589,7 +581,8 @@ a {
   position: absolute;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-end;
+  align-items: center;
   bottom: 0px;
   left: 0px;
   width: 100%;
@@ -672,9 +665,13 @@ a {
   display: none;
 }
 
-.image-viewer img {
-  max-width: 90%;
+#viewerImage {
+  position: absolute;
+  top: 3.5rem;
+  max-width: 90vw;
+  min-width: 70vw;
   max-height: 80vh;
+  min-height: 75vh;
   object-fit: contain;
   /* box-shadow: 0 0 20px rgba(255, 255, 255, 0.2); */
   transition: transform 0.1s ease;
@@ -708,6 +705,26 @@ a {
   transition: 0.3s;
 }
 
+/* #prevBtn{
+  position: static;
+}
+
+#nextBtn{
+  position: static;
+}
+
+#fullscreenBtn{
+  position: static;
+}
+
+#closeBtn{
+  position: static;
+} */
+
+#fullscreenBtn img{
+  height: 1.5rem;
+}
+
 #fullscreenBtn img{
   height: 1.5rem;
 }
@@ -719,7 +736,8 @@ a {
 .image-title {
   position: absolute;
   display: block;
-  bottom: 6%;
+  max-width: 30%;
+  bottom: 3%;
   left: 20%;
   transform: translateX(-50%);
   color: black;
@@ -738,7 +756,7 @@ a {
   position: absolute;
   display: block;
   bottom: 6%;
-  right: 10%;
+  right: 15%;
   color: black;
 }
 
@@ -763,7 +781,137 @@ a {
   display: none;
 }
 
+@media (max-width: 1199px){
+  .image-viewer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgb(236, 236, 236);
+    backdrop-filter: blur(16px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    flex-direction: column;
+  }
+  
+  .image-viewer.hidden {
+    display: none;
+  }
+  
+  .image-viewer img {
+    max-width: 90%;
+    max-height: 80vh;
+    object-fit: contain;
+    /* box-shadow: 0 0 20px rgba(255, 255, 255, 0.2); */
+    transition: transform 0.1s ease;
+    /* Smooth transition for zoom */
+  }
+  
+  .image-viewer.fullscreen img {
+    object-fit: contain;
+    cursor: grab;
+    /* Cursor changes to grab for dragging */
+    width: 90vw;
+    height: 100vh;
+  }
+  
+  .viewer-controls {
+    position: absolute;
+    bottom: 3%;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 1rem;
+  }
+  
+  
+  .viewer-controls button {
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+    padding: 0.5em 0.8em;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+  #prevBtn{
+    position: static;
+  }
+
+  #nextBtn{
+    position: static;
+  }
+
+  #fullscreenBtn{
+    position: static;
+  }
+
+  #closeBtn{
+    position: static;
+  }
+  
+  #fullscreenBtn img{
+    height: 1.5rem;
+  }
+  
+  .viewer-controls button:hover {
+    background: rgba(0, 0, 0, 0.123);
+  }
+  
+  .image-title {
+    position: absolute;
+    display: block;
+    max-width: 30%;
+    bottom: 3%;
+    left: 20%;
+    transform: translateX(-50%);
+    color: black;
+  }
+  
+  /* .work-size {
+    position: absolute;
+    display: block;
+    bottom: 1%;
+    left: 5%;
+    color: white;
+    text-align: left
+  } */
+  
+  .copyright {
+    position: absolute;
+    display: block;
+    bottom: 6%;
+    right: 15%;
+    color: black;
+  }
+  
+  .image-viewer.fullscreen {
+    background: #000 !important;
+  }
+  
+  .fullscreen .viewer-controls button {
+    color: white;
+  }
+  
+  .fullscreen .image-title {
+    display: none;
+  }
+  
+  .fullscreen .copyright {
+    display: none;
+  }
+  
+  .image-viewer.fullscreen .viewer-controls button:not(#fullscreenBtn),
+  .image-viewer.fullscreen .image-title .copyright {
+    display: none;
+  }
+}
+
 @media (max-width: 767.98px){
+
   .image-viewer {
     background: rgb(0, 0, 0);
   }
@@ -771,27 +919,19 @@ a {
   .viewer-image-wrapper{}
   
   .image-viewer img {
-    max-height: 60%;
+    width: 90%;
     position: absolute;
-    top: 6rem;
+    top: 2rem;
   }
   
 
   #fullscreenBtn{
     display: none;
   }
-
-  .image-viewer.fullscreen img {
-    object-fit: contain;
-    cursor: grab;
-    /* Cursor changes to grab for dragging */
-    width: 90%;
-    height: 100vh;
-  }
   
   .viewer-controls {
     position: absolute;
-    bottom: 20%;
+    bottom: 12%;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
@@ -817,8 +957,8 @@ a {
   .image-title {
     position: absolute;
     display: block;
-    width: 40%;
-    bottom: 15%;
+    width: 30%;
+    bottom: 6%;
     left: 25%;
     color: white;
     font-size: var(--fs-small);
@@ -828,7 +968,7 @@ a {
   .copyright {
     position: absolute;
     display: block;
-    bottom: 15%;
+    bottom: 9%;
     right: 10%;
     color: white;
   }
