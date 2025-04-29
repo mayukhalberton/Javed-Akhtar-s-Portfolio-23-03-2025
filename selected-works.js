@@ -500,18 +500,18 @@ viewerImg.addEventListener('touchend', (e) => {
               return; // Exit early
           }
           // Check for TAP navigation second
-          else if (Math.abs(deltaX) < 10 && Math.abs(deltaY) < 10) {
-                const rect = viewerImg.getBoundingClientRect();
-                const clickX = endX;
-                const relativeX = clickX - rect.left;
-                if (relativeX < rect.width / 2) {
-                    prevImage();
-                } else {
-                    nextImage();
-                }
-                // Don't call resetTouchState here, openImageViewer does it
-                return; // Exit early
-          }
+          // else if (Math.abs(deltaX) < 10 && Math.abs(deltaY) < 10) {
+          //       const rect = viewerImg.getBoundingClientRect();
+          //       const clickX = endX;
+          //       const relativeX = clickX - rect.left;
+          //       if (relativeX < rect.width / 2) {
+          //           prevImage();
+          //       } else {
+          //           nextImage();
+          //       }
+          //       // Don't call resetTouchState here, openImageViewer does it
+          //       return; // Exit early
+          // }
       }
   }
 
