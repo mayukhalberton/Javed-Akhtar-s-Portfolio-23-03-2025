@@ -991,6 +991,68 @@ a {
   }
 }
 
+/* loading animation */
+/* Add this to your app.css */
+
+.viewer-image-wrapper {
+  position: relative; /* Crucial for positioning the loader inside */
+  /* Add other styles like width, height, display: flex etc. if needed */
+  display: flex;      /* Keep flex if you were using it */
+  justify-content: center; /* Keep flex properties */
+  align-items: center; /* Keep flex properties */
+  width: 100%; /* Ensure wrapper takes space */
+  height: 100%; /* Ensure wrapper takes space */
+}
+
+.loader {
+  border: 5px solid #f3f3f3; /* Light grey */
+  border-top: 5px solid #555; /* Darker grey or a theme color */
+  border-radius: 50%;
+  width: 50px;  /* Adjust size as needed */
+  height: 50px; /* Adjust size as needed */
+  animation: spin 1.5s linear infinite;
+  position: absolute; /* Position relative to .viewer-image-wrapper */
+  top: 50%;
+  left: 50%;
+  /* Removed transform: translate(-50%, -50%) because flex centering handles it */
+  margin-top: -25px; /* Half of height to center vertically */
+  margin-left: -25px;/* Half of width to center horizontally */
+  z-index: 10; /* Ensure loader is above the image area */
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Optional: Ensure image doesn't show until loaded */
+/* We handle this with JS (visibility hidden/visible) now, */
+/* but this could be a fallback */
+/*
+#viewerImage {
+   visibility: hidden;
+}
+#viewerImage[src] { // Or some other indicator that it's loading/loaded
+    visibility: visible;
+}
+*/
+
+/* You might want to adjust #viewerImage positioning if needed */
+#viewerImage {
+  /* position: absolute; */ /* No longer needed if wrapper uses flex */
+  /* top: 3.5rem; */      /* Adjust as needed if removing absolute */
+  max-width: 90vw;
+  /* min-width: 70vw; */ /* Min width might interfere with loader visibility */
+  max-height: 80vh;
+  /* min-height: 75vh; */ /* Min height might interfere with loader visibility */
+  object-fit: contain;
+  transition: transform 0.1s ease;
+  /* Ensure image itself doesn't block loader visually initially */
+  background-color: transparent; /* Or match viewer background */
+}
+
+
+/* Rest of your existing CSS... */
 /* --------------- contact.html -------------- */
 
 .contact-container .contact-form {
