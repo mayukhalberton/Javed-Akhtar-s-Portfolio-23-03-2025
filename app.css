@@ -440,6 +440,10 @@ a {
     background-position: 85% 10%;
   }
 
+  .nav-mob-index .logo-mob {
+    opacity: 0.8;
+  }
+
   .nav-mob-index ul {
     margin: 0;
     padding: 0;
@@ -457,6 +461,10 @@ a {
 
   .copyright-mob{
     margin-top: auto;
+  }
+
+  .logo-insta-mob{
+    opacity: 0.8;
   }
 
   .hero {
