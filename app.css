@@ -1148,4 +1148,5 @@ a {
 .contact-container .contact-form {
     max-width: 700px ;
     width: 85%;
+    opacity: 0.8;
 }
