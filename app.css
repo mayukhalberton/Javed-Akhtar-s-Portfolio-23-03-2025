@@ -193,7 +193,6 @@ body {
   padding: 0px;
   margin: 0px;
   height: 100%;
-  /* outline: 2px solid red; */
   overflow-x: hidden;
 }
 
@@ -215,9 +214,13 @@ a {
   background-color: white;
 }
 
+.navbar .logo a{
+  color: rgba(0, 0, 0, 0.8);
+}
+
 .navbar .social img {
   height: 1.8rem;
-  opacity: 0.7;
+  opacity: 0.8;
 }
 
 .nav-links ul {
@@ -234,6 +237,7 @@ a {
   /* Remaining width */
   height: 100%;
   /* outline: 2px solid blue; */
+  color: rgba(0, 0, 0, 0.8);
 }
 
 @media (max-width: 1199px) {
@@ -350,9 +354,14 @@ a {
     z-index: -1;
   }
 
+  .navbar-mob .flex a .logo-mob  {
+    color: rgba(0, 0, 0, 0.8);
+  }
+
   .icon-ham img{
     height: 2rem;
     object-fit: cover;
+    opacity: 0.8;
   }
 
   .icon-ham:hover {
@@ -385,7 +394,7 @@ a {
   }
 
   .nav-links-mob ul li a {
-    color: rgb(0, 0, 0);
+    color: rgba(0, 0, 0, 0.8);
   }
 
   /* .nav-links-mob ul li a:hover {
@@ -482,6 +491,10 @@ a {
 .about-image img {
   object-fit: contain;
   display: block;
+}
+
+.cv-icon img {
+  opacity: 0.8;
 }
 
 @media (max-width: 1199px) {
@@ -616,7 +629,7 @@ a {
     align-items: center;
     text-align: center;
     padding-bottom: 2rem;
-    color: rgb(0, 0, 0);
+    color: rgb(0, 0, 0, 0.8);
     backdrop-filter: none;
     background: transparent;
     opacity: 1;
