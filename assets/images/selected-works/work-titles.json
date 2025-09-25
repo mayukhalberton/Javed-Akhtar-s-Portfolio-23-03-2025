@@ -1,42 +1,338 @@
 [
-  { "sl": 36, "title": "Macabre Series IX", "year": 2025, "type": "Oil On Canvas", "size": "66 X 51 (cm)" },
-  { "sl": 37, "title": "Macabre Series VIII", "year": 2025, "type": "Oil On Canvas", "size": "42 X 30 (cm)" },
-  { "sl": 38, "title": "Macabre Series VII", "year": 2025, "type": "Oil On Canvas", "size": "42 X 30 (cm)" },
-  { "sl": 39, "title": "Macabre Series VI", "year": 2025, "type": "Oil On Canvas", "size": "102 X 51 (cm)" },
-  { "sl": 40, "title": "Macabre Series V", "year": 2025, "type": "Oil On Canvas", "size": "102 X 51 (cm)" },
-  { "sl": 1, "title": "Macabre Series IV", "year": 2025, "type": "Oil On Canvas", "size": "40 x 50 (cm)" },
-  { "sl": 2, "title": "Memories Of Them Faded", "year": 2024, "type": "Oil On Canvas", "size": "153 x 153 (cm)" },
-  { "sl": 3, "title": "The Hollow", "year": 2024, "type": "Oil On Canvas", "size": "153 x 153 (cm)" },
-  { "sl": 4, "title": "A Hunger Artist", "year": 2024, "type": "Oil On Canvas", "size": "153 x 122 (cm)" },
-  { "sl": 5, "title": "Macabre Series I", "year": 2024, "type": "Oil On Canvas", "size": "30 x 40 (cm)" },
-  { "sl": 6, "title": "Macabre Series III", "year": 2024, "type": "Oil On Canvas", "size": "30 x 40 (cm)" },
-  { "sl": 7, "title": "The Nightmare", "year": 2024, "type": "Oil On Canvas", "size": "92 x 76 (cm)" },
-  { "sl": 8, "title": "Macabre Series II", "year": 2024, "type": "Oil On Canvas", "size": "30 x 30 (cm)" },
-  { "sl": 9, "title": "The Watcher", "year": 2023, "type": "Oil On Canvas", "size": "153 x 122 (cm)" },
-  { "sl": 10, "title": "The Bathers II", "year": 2022, "type": "Watercolour On Paper", "size": "70 x 126 (cm)" },
-  { "sl": 11, "title": "The Blue Lagoon", "year": 2022, "type": "Watercolour On Paper", "size": "70 x 126 (cm)" },
-  { "sl": 12, "title": "Love In The Time Of Corona", "year": 2022, "type": "Watercolour On Paper", "size": "70 x 126 (cm)" },
-  { "sl": 13, "title": "She Come, Bath, Thinks and Sleeps", "year": 2022, "type": "Watercolour On Paper", "size": "60 x 126 (cm)" },
-  { "sl": 14, "title": "Soulmate", "year": 2022, "type": "Watercolour On Paper", "size": "70 x 43 (cm)" },
-  { "sl": 15, "title": "The Wounded Lovers", "year": 2021, "type": "Oil On Canvas", "size": "153 x 153 (cm)" },
-  { "sl": 16, "title": "Untitled", "year": 2021, "type": "Oil On Canvas", "size": "25 x 20 (cm)" },
-  { "sl": 17, "title": "Last Farewell", "year": 2021, "type": "Oil On Canvas", "size": "153 x 183 (cm)" },
-  { "sl": 18, "title": "Garden Of Love", "year": 2021, "type": "Oil On Canvas", "size": "60 x 76 (cm)" },
-  { "sl": 19, "title": "The Lovers II", "year": 2021, "type": "Watercolour On Paper", "size": "70 x 135 (cm)" },
-  { "sl": 20, "title": "Crying Soul", "year": 2020, "type": "Oil On Canvas", "size": "30 x 30 (cm)" },
-  { "sl": 21, "title": "Fallen Angel", "year": 2020, "type": "Oil On Canvas", "size": "153 x 153 (cm)" },
-  { "sl": 22, "title": "Entangled", "year": 2020, "type": "Oil On Canvas", "size": "153 x 183 (cm)" },
-  { "sl": 23, "title": "The Lovers", "year": 2020, "type": "Oil On Canvas", "size": "30 x 30 (cm)" },
-  { "sl": 24, "title": "Beyond The Enchanted Land I", "year": 2019, "type": "Oil On Canvas", "size": "30 x 30 (cm)" },
-  { "sl": 25, "title": "Beyond The Enchanted Land II", "year": 2019, "type": "Oil On Canvas", "size": "30 x 30 (cm)" },
-  { "sl": 26, "title": "Beyond The Enchanted Land IV", "year": 2019, "type": "Oil On Canvas", "size": "40 x 60 (cm)" },
-  { "sl": 27, "title": "City Of Cross I", "year": 2019, "type": "Oil On Canvas", "size": "30 x 30 (cm)" },
-  { "sl": 28, "title": "City Of Cross II", "year": 2019, "type": "Oil On Canvas", "size": "32 x 42 (cm)" },
-  { "sl": 29, "title": "Last Supper At Nanji", "year": 2019, "type": "Oil On Canvas", "size": "73 x 73 (cm)" },
-  { "sl": 30, "title": "Rest In Peace", "year": 2018, "type": "Oil On Canvas", "size": "153 x 183 (cm)" },
-  { "sl": 31, "title": "The Bathers", "year": 2017, "type": "Watercolour On Paper", "size": "92 x 30 (cm)" },
-  { "sl": 32, "title": "Lovers Beside Pond", "year": 2017, "type": "Watercolour On Paper", "size": "46 x 59 (cm)" },
-  { "sl": 33, "title": "The Elephant Pond", "year": 2015, "type": "Oil On Canvas", "size": "153 x 183 (cm)" },
-  { "sl": 34, "title": "Tennis Court", "year": 2015, "type": "Oil On Canvas", "size": "153 x 183 (cm)" },
-  { "sl": 35, "title": "The Stage", "year": 2015, "type": "Oil On Canvas", "size": "153 x 183 (cm)" }
+  {
+    "sl": 48,
+    "title": "Night Crawling",
+    "year": 2025,
+    "type": "Oil On Canvas",
+    "size": "60 X 60 (cm)"
+  },
+  {
+    "sl": 47,
+    "title": "The voyage of the lost souls",
+    "year": 2025,
+    "type": "Oil On Canvas",
+    "size": "50 X 50 (cm)"
+  },
+  {
+    "sl": 46,
+    "title": "The ferryman of lost souls",
+    "year": 2025,
+    "type": "Oil On Canvas",
+    "size": "50 X 50 (cm)"
+  },
+  {
+    "sl": 45,
+    "title": "The Journey",
+    "year": 2025,
+    "type": "Oil On Canvas",
+    "size": "15 X 20 (cm)"
+  },
+  {
+    "sl": 44,
+    "title": "Margate",
+    "year": 2025,
+    "type": "Oil On Canvas",
+    "size": "15 X 20 (cm)"
+  },
+  {
+    "sl": 43,
+    "title": "The journey ll",
+    "year": 2025,
+    "type": "Oil On Canvas",
+    "size": "15 X 20 (cm)"
+  },
+  {
+    "sl": 42,
+    "title": "Between life and death",
+    "year": 2025,
+    "type": "Oil On Canvas",
+    "size": "15 X 20 (cm)"
+  },
+  {
+    "sl": 41,
+    "title": "The Theatre",
+    "year": 2025,
+    "type": "Oil On Canvas",
+    "size": "15 X 20 (cm)"
+  },
+  {
+    "sl": 36,
+    "title": "Macabre Series IX",
+    "year": 2025,
+    "type": "Oil On Canvas",
+    "size": "66 X 51 (cm)"
+  },
+  {
+    "sl": 37,
+    "title": "Macabre Series VIII",
+    "year": 2025,
+    "type": "Oil On Canvas",
+    "size": "42 X 30 (cm)"
+  },
+  {
+    "sl": 38,
+    "title": "Macabre Series VII",
+    "year": 2025,
+    "type": "Oil On Canvas",
+    "size": "42 X 30 (cm)"
+  },
+  {
+    "sl": 39,
+    "title": "Macabre Series VI",
+    "year": 2025,
+    "type": "Oil On Canvas",
+    "size": "102 X 51 (cm)"
+  },
+  {
+    "sl": 40,
+    "title": "Macabre Series V",
+    "year": 2025,
+    "type": "Oil On Canvas",
+    "size": "102 X 51 (cm)"
+  },
+  {
+    "sl": 1,
+    "title": "Macabre Series IV",
+    "year": 2025,
+    "type": "Oil On Canvas",
+    "size": "40 x 50 (cm)"
+  },
+  {
+    "sl": 2,
+    "title": "Memories Of Them Faded",
+    "year": 2024,
+    "type": "Oil On Canvas",
+    "size": "153 x 153 (cm)"
+  },
+  {
+    "sl": 3,
+    "title": "The Hollow",
+    "year": 2024,
+    "type": "Oil On Canvas",
+    "size": "153 x 153 (cm)"
+  },
+  {
+    "sl": 4,
+    "title": "A Hunger Artist",
+    "year": 2024,
+    "type": "Oil On Canvas",
+    "size": "153 x 122 (cm)"
+  },
+  {
+    "sl": 5,
+    "title": "Macabre Series I",
+    "year": 2024,
+    "type": "Oil On Canvas",
+    "size": "30 x 40 (cm)"
+  },
+  {
+    "sl": 6,
+    "title": "Macabre Series III",
+    "year": 2024,
+    "type": "Oil On Canvas",
+    "size": "30 x 40 (cm)"
+  },
+  {
+    "sl": 7,
+    "title": "The Nightmare",
+    "year": 2024,
+    "type": "Oil On Canvas",
+    "size": "92 x 76 (cm)"
+  },
+  {
+    "sl": 8,
+    "title": "Macabre Series II",
+    "year": 2024,
+    "type": "Oil On Canvas",
+    "size": "30 x 30 (cm)"
+  },
+  {
+    "sl": 9,
+    "title": "The Watcher",
+    "year": 2023,
+    "type": "Oil On Canvas",
+    "size": "153 x 122 (cm)"
+  },
+  {
+    "sl": 10,
+    "title": "The Bathers II",
+    "year": 2022,
+    "type": "Watercolour On Paper",
+    "size": "70 x 126 (cm)"
+  },
+  {
+    "sl": 11,
+    "title": "The Blue Lagoon",
+    "year": 2022,
+    "type": "Watercolour On Paper",
+    "size": "70 x 126 (cm)"
+  },
+  {
+    "sl": 12,
+    "title": "Love In The Time Of Corona",
+    "year": 2022,
+    "type": "Watercolour On Paper",
+    "size": "70 x 126 (cm)"
+  },
+  {
+    "sl": 13,
+    "title": "She Come, Bath, Thinks and Sleeps",
+    "year": 2022,
+    "type": "Watercolour On Paper",
+    "size": "60 x 126 (cm)"
+  },
+  {
+    "sl": 14,
+    "title": "Soulmate",
+    "year": 2022,
+    "type": "Watercolour On Paper",
+    "size": "70 x 43 (cm)"
+  },
+  {
+    "sl": 15,
+    "title": "The Wounded Lovers",
+    "year": 2021,
+    "type": "Oil On Canvas",
+    "size": "153 x 153 (cm)"
+  },
+  {
+    "sl": 16,
+    "title": "Untitled",
+    "year": 2021,
+    "type": "Oil On Canvas",
+    "size": "25 x 20 (cm)"
+  },
+  {
+    "sl": 17,
+    "title": "Last Farewell",
+    "year": 2021,
+    "type": "Oil On Canvas",
+    "size": "153 x 183 (cm)"
+  },
+  {
+    "sl": 18,
+    "title": "Garden Of Love",
+    "year": 2021,
+    "type": "Oil On Canvas",
+    "size": "60 x 76 (cm)"
+  },
+  {
+    "sl": 19,
+    "title": "The Lovers II",
+    "year": 2021,
+    "type": "Watercolour On Paper",
+    "size": "70 x 135 (cm)"
+  },
+  {
+    "sl": 20,
+    "title": "Crying Soul",
+    "year": 2020,
+    "type": "Oil On Canvas",
+    "size": "30 x 30 (cm)"
+  },
+  {
+    "sl": 21,
+    "title": "Fallen Angel",
+    "year": 2020,
+    "type": "Oil On Canvas",
+    "size": "153 x 153 (cm)"
+  },
+  {
+    "sl": 22,
+    "title": "Entangled",
+    "year": 2020,
+    "type": "Oil On Canvas",
+    "size": "153 x 183 (cm)"
+  },
+  {
+    "sl": 23,
+    "title": "The Lovers",
+    "year": 2020,
+    "type": "Oil On Canvas",
+    "size": "30 x 30 (cm)"
+  },
+  {
+    "sl": 24,
+    "title": "Beyond The Enchanted Land I",
+    "year": 2019,
+    "type": "Oil On Canvas",
+    "size": "30 x 30 (cm)"
+  },
+  {
+    "sl": 25,
+    "title": "Beyond The Enchanted Land II",
+    "year": 2019,
+    "type": "Oil On Canvas",
+    "size": "30 x 30 (cm)"
+  },
+  {
+    "sl": 26,
+    "title": "Beyond The Enchanted Land IV",
+    "year": 2019,
+    "type": "Oil On Canvas",
+    "size": "40 x 60 (cm)"
+  },
+  {
+    "sl": 27,
+    "title": "City Of Cross I",
+    "year": 2019,
+    "type": "Oil On Canvas",
+    "size": "30 x 30 (cm)"
+  },
+  {
+    "sl": 28,
+    "title": "City Of Cross II",
+    "year": 2019,
+    "type": "Oil On Canvas",
+    "size": "32 x 42 (cm)"
+  },
+  {
+    "sl": 29,
+    "title": "Last Supper At Nanji",
+    "year": 2019,
+    "type": "Oil On Canvas",
+    "size": "73 x 73 (cm)"
+  },
+  {
+    "sl": 30,
+    "title": "Rest In Peace",
+    "year": 2018,
+    "type": "Oil On Canvas",
+    "size": "153 x 183 (cm)"
+  },
+  {
+    "sl": 31,
+    "title": "The Bathers",
+    "year": 2017,
+    "type": "Watercolour On Paper",
+    "size": "92 x 30 (cm)"
+  },
+  {
+    "sl": 32,
+    "title": "Lovers Beside Pond",
+    "year": 2017,
+    "type": "Watercolour On Paper",
+    "size": "46 x 59 (cm)"
+  },
+  {
+    "sl": 33,
+    "title": "The Elephant Pond",
+    "year": 2015,
+    "type": "Oil On Canvas",
+    "size": "153 x 183 (cm)"
+  },
+  {
+    "sl": 34,
+    "title": "Tennis Court",
+    "year": 2015,
+    "type": "Oil On Canvas",
+    "size": "153 x 183 (cm)"
+  },
+  {
+    "sl": 35,
+    "title": "The Stage",
+    "year": 2015,
+    "type": "Oil On Canvas",
+    "size": "153 x 183 (cm)"
+  }
 ]
