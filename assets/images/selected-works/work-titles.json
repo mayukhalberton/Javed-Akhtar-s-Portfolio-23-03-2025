@@ -49,13 +49,6 @@
     "size": "Size-  90 x 90 (cm)"
   },
   {
-    "sl": 59,
-    "title": "The Stairs",
-    "year": 2025,
-    "type": "Oil On Canvas",
-    "size": "Size- 70 x 70 (cm)"
-  },
-  {
     "sl": 60,
     "title": "Shadows of the Wounds",
     "year": 2026,
@@ -75,6 +68,13 @@
     "year": 2026,
     "type": "Oil On Canvas",
     "size": "Size- 200 x 140 (cm)"
+  },
+  {
+    "sl": 59,
+    "title": "The Stairs",
+    "year": 2025,
+    "type": "Oil On Canvas",
+    "size": "Size- 70 x 70 (cm)"
   },
   {
     "sl": 49,
